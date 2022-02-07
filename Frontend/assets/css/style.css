@@ -1,0 +1,36 @@
+.first-form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: 0 auto;
+ height:100%
+}
+
+body{
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(#e66465, #9198e5);
+
+}
+.first-form button{
+    margin-top: 30px;
+    height: 30px;
+    margin-bottom: 30px;
+
+}
+
+input{
+    height: 28px;
+}
+
+.title{
+    text-align: center;
+}
+
+
+.second-form{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 0 auto;
+}
