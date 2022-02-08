@@ -20,10 +20,10 @@ class Database
                 \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
                 \PDO::ATTR_EMULATE_PREPARES   => false,
             ];
-            $this->dsn = "mysql:host=".DB_HOST.";dbname=" . DB_NAME.";charset=utf8mb4;port=".DB_PORT;
-            $this->pdo = new PDO($this->dsn, DB_USER, DB_PASS,$this->options);
+            $this->dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4;port=" . DB_PORT;
+            $this->pdo = new PDO($this->dsn, DB_USER, DB_PASS, $this->options);
         } catch (PDOException $e) {
-            echo $e;
+            echo "Connection failed: " . $e->getMessage();
         }
     }
 

@@ -12,6 +12,10 @@ if (isset($_POST['name']) && strlen($_POST['name']) > 0) {
 
     $url = "https://api.twitter.com/2/users/" . $userId . "/tweets?start_time=" . $start_date . "&end_time=" . $end_date . "&max_results=" . $max_results;
     $response = $dataHandling->getTweetId($url);
+    if (isset($response->errors)) {
+        echo '<h1>' . $response->errors[0]->message . '</h1>';
+        die();
+    }
     foreach ($response->data as $key => $tweet) {
         $tweetId = $tweet->id;
         $newURL = 'https://api.twitter.com/2/tweets/?ids=' . $tweetId . '&tweet.fields=created_at,referenced_tweets,public_metrics&expansions=attachments.media_keys,entities.mentions.username&media.fields=duration_ms,height,media_key,preview_image_url,public_metrics,type,url,width,alt_text';
@@ -26,7 +30,7 @@ if (isset($_POST['name']) && strlen($_POST['name']) > 0) {
         $media = "";
         foreach ($tweetMedia as $mediaKey => $url) {
 
-            $media .= $url->url ? $url->url . ' ' : $url->preview_image_url . ' ';
+            $media .= $url->url ? $url->url . '    ' : $url->preview_image_url . '    ';
         }
 
         $mentions = '';
@@ -36,13 +40,16 @@ if (isset($_POST['name']) && strlen($_POST['name']) > 0) {
                 $mentions .= $mention->username . ' ';
             }
         }
+        $createdAt = $newResponse->data[0]->created_at;
         $retweets = $newResponse->data[0]->public_metrics->retweet_count;
         $replies = $newResponse->data[0]->public_metrics->reply_count;
         $likes = $newResponse->data[0]->public_metrics->like_count;
+        $createdAt = strtok($createdAt, "T");
+        $tweetId = (int)substr($tweetId, 0, 10);
 
-        $tweetId = (int)substr($tweetId, 0, 8);
-        print_r($tweetId);
-        $dataHandling->insertDb(['tweetText' => $tweetText, 'tweetId' => $tweetId, 'mentions' => $mentions, 'media' => $media, 'user' => $name, 'retweets' => $retweets, 'replies' => $replies, 'likes' => $likes], $tweetId);
+        echo $dataHandling->showData($tweetText, $name, $createdAt);
+
+        $dataHandling->insertDb(['tweetText' => $tweetText,  'tweetId' => $tweetId, 'mentions' => $mentions, 'media' => $media, 'user' => $name, 'retweets' => $retweets, 'replies' => $replies, 'likes' => $likes, 'createdAt' => $createdAt], $tweetId);
     }
-    echo '<h1>Complete</h1>';
+    echo '<h1>Complete!</h1>';
 }

@@ -4,7 +4,7 @@ include './Database.php';
 class DataHandling
 {
     private $userName;
-   
+
     private $getUserUrl = "https://api.twitter.com/2/users/by?usernames=";
     private $options = array('http' => array(
         'method' => "GET",
@@ -51,7 +51,6 @@ class DataHandling
         $sql = "INSERT INTO `tweets` ({$columns})  VALUES (${values}) 
      
          ";
-        echo '12345678------------->' . $fields['tweetId'];
 
 
         try {
@@ -62,6 +61,7 @@ class DataHandling
             }
             $stmt->execute();
         } catch (Exception $e) {
+            echo $e;
         }
     }
 
@@ -72,5 +72,13 @@ class DataHandling
         $response = json_decode($response);
         return $response;
     }
-    
+
+    public function showData($text, $userName, $date)
+    {
+        return "
+        <h2>" . $userName . "</h2>
+        <h3>" . $text . "</h3>
+        <h4>" . $date . "</h4>
+        ";
+    }
 }
