@@ -29,7 +29,7 @@ class DataHandling
     {
         $options = stream_context_create($this->options);
         $response = file_get_contents($getTweetIdUrl, false, $options);
-        $response = json_decode($response);
+        $response = json_decode($response,true);
         return $response;
     }
 
