@@ -55,7 +55,9 @@ class ExportExcel
 
             // Then, loop through the rows and write them to the CSV file.
             foreach ($rows as $row) {
+               
                 fputcsv($fp, $row);
+                 
             }
 
             //Close the file pointer.

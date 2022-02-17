@@ -18,9 +18,6 @@
             <input name="name" />
 
 
-            <label for="max_results">Max Results</label>
-
-            <input name="max_results" type="number" />
 
 
 

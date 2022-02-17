@@ -4,7 +4,7 @@ include_once './getTweetIds.php';
 if (isset($_POST['name']) && strlen($_POST['name']) > 0) {
     echo '<h1>Starting</h1>';
     $name = $_POST['name'];
-    $max_results = $_POST['max_results'];
+    $max_results = 100;
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
 

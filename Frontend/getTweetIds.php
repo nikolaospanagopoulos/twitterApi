@@ -8,6 +8,7 @@ ini_set('display_errors', TRUE); // Error/Exception display, use FALSE only in p
 
 ini_set('log_errors', TRUE); // Error/Exception file logging engine.
 ini_set('error_log', 'your/path/to/errors.log'); // Logging file path
+set_time_limit(0);
 function getTweetIds($name, $maxResults, $start_date, $end_date)
 {
     $ids = [];
@@ -21,7 +22,7 @@ function getTweetIds($name, $maxResults, $start_date, $end_date)
     $userId = $dataHandling->getUserId();
 
 
-    $api = "https://api.twitter.com/2/users/" . $userId . "/tweets?start_time=2019-05-01T00:00:00.000Z&end_time=2020-01-01T00:00:00.000Z" . "&max_results=" . $maxResults;
+    $api = "https://api.twitter.com/2/users/" . $userId . "/tweets?start_time=".$start_date."T00:00:00.000Z&end_time=".$end_date."T00:00:00.000Z" . "&max_results=" . $maxResults;
     function getData($api, $dataHandling)
     {
 

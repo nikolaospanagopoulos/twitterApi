@@ -1,5 +1,6 @@
 <?php
-include './Database.php';
+ 
+
 
 class DataHandling
 {
